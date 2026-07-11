@@ -28,7 +28,7 @@ TELEGRAM_URL = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}"
 
 # Contador de llamadas API
 api_calls = 0
-MAX_API_CALLS = 95
+MAX_API_CALLS = 9999999
 
 # ============ SERVIDOR WEB PARA RENDER (FLASK) ============
 app = Flask(__name__)

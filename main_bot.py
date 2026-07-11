@@ -504,33 +504,28 @@ FORMA {away} (ultimos 5):
 H2H (ultimos 5):
 {format_h2h(h2h)}"""
 
-    prompt = f"""Eres un experto en apuestas deportivas. Analiza el siguiente partido y da tu MEJOR pick.
+        prompt = f"""Eres un analista estadístico experto en fútbol. Tu único objetivo es encontrar la tendencia matemática más sólida basada estrictamente en los números, rachas y promedios proporcionados. No intentes adivinar cuotas de casas de apuestas; enfócate en la probabilidad real de que ocurra el evento.
 
 REGLAS ESTRICTAS:
-1. Analiza TODAS estas opciones y elige la MEJOR:
-   - Over/Under 0.5, 1.5, 2.5, 3.5, 4.5, 5.5 goles
-   - Over/Under 8.5, 9.5, 10.5, 11.5, 12.5, 13.5 corners
-   - Ambos equipos marcan (BTTS): Si / No
-2. La probabilidad debe ser REALISTA basada en los datos. NO inventes.
-3. Stake 8-10 SOLO si los datos son contundentes.
-4. Stake 5-7 para picks con buen soporte estadistico.
-5. Stake 1-4 si hay incertidumbre.
-6. Si no hay valor claro, di "SIN VALOR" y no des pick.
-7. La probabilidad es TU opinion honesta.
-8. Se honesto. Mejor no dar pick que dar uno falso.
-9. Elige la linea con MEJOR relacion valor/riesgo.
+1. Analiza los datos e identifica la opción más constante entre estas categorías principales:
+   - Goles totales (Líneas estándar: Over/Under 1.5, 2.5 o 3.5)
+   - Córners totales (Líneas estándar: Over/Under 8.5, 9.5 o 10.5)
+   - Ambos equipos marcan (BTTS: Sí o No)
+2. La PROBABILIDAD debe ser un cálculo frío basado en la frecuencia con la que se ha cumplido la línea en los últimos 5 partidos de cada equipo, sumado a sus promedios generales de la temporada. No opines, calcula.
+3. Si los datos son caóticos, se contradicen, o ninguna tendencia supera el 65% de probabilidad matemática clara, responde en MERCADO exactamente con la frase: SIN TENDENCIA CLARA.
+4. Sé totalmente objetivo y apégate a las estadísticas históricas y recientes provistas.
 
 DATOS:
 {data}
 
 FORMATO OBLIGATORIO:
-MERCADO: [Over/Under X.5 goles/corners] o [BTTS Si/No]
-PROBABILIDAD: [numero del 1 al 100]%
-STAKE: [1-10]
+MERCADO: [Ejemplo: Over 1.5 goles / BTTS Sí / Under 10.5 corners]
+PROBABILIDAD: [Número del 1 al 100]%
 POR QUE:
-- [linea 1 con dato concreto]
-- [linea 2 con dato concreto]
-- [linea 3 con dato concreto]"""
+- [Dato estadístico concreto del equipo local que respalda el número]
+- [Dato estadístico concreto del equipo visitante que respalda el número]
+- [Tendencia del enfrentamiento directo (H2H) o promedio combinado que confirma la proyección]"""
+
     return prompt
 
 # ============ ANALIZAR PARTIDO ============

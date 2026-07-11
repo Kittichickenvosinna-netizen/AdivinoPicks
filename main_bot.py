@@ -504,7 +504,7 @@ FORMA {away} (ultimos 5):
 H2H (ultimos 5):
 {format_h2h(h2h)}"""
 
-        prompt = f"""Eres un analista estadístico experto en fútbol. Tu único objetivo es encontrar la tendencia matemática más sólida basada estrictamente en los números, rachas y promedios proporcionados. No intentes adivinar cuotas de casas de apuestas; enfócate en la probabilidad real de que ocurra el evento.
+    prompt = f"""Eres un analista estadístico experto en fútbol. Tu único objetivo es encontrar la tendencia matemática más sólida basada estrictamente en los números, rachas y promedios proporcionados. No intentes adivinar cuotas de casas de apuestas; enfócate en la probabilidad real de que ocurra el evento.
 
 REGLAS ESTRICTAS:
 1. Analiza los datos e identifica la opción más constante entre estas categorías principales:
@@ -528,6 +528,7 @@ POR QUE:
 
     return prompt
 
+
 # ============ ANALIZAR PARTIDO ============
 def analizar_partido(match):
     global api_calls
@@ -537,22 +538,21 @@ def analizar_partido(match):
     league_id = match["league"]["id"]
     season = match["league"].get("season", 2026)
 
-    if api_calls >= MAX_API_CALLS - 5:
-        print(f"[WARN] Casi en limite API ({api_calls}/{MAX_API_CALLS})", flush=True)
-        return None
-
     home_form = get_team_form(hid)
     away_form = get_team_form(aid)
     h2h = get_h2h(hid, aid)
 
-    home_stats = None
-    away_stats = None
-    if api_calls < MAX_API_CALLS - 10:
-        home_stats = get_team_stats(hid, league_id, season)
-        away_stats = get_team_stats(aid, league_id, season)
+    home_stats = get_team_stats(hid, league_id, season)
+    away_stats = get_team_stats(aid, league_id, season)
 
     prompt = build_prompt(match, home_form, away_form, h2h, home_stats, away_stats)
     response = get_gemini_response(prompt)
+
+    if not response:
+        print(f"[WARN] Gemini no respondio", flush=True)
+        return None
+
+    parsed = parse_gemini_response(response)
 
     if not response:
         print(f"[WARN] Gemini no respondio", flush=True)

@@ -330,7 +330,7 @@ def api_request(endpoint, params=None):
         return []
 
 def get_matches(date_str, ligas):
-    matches = api_request("fixtures", {"date": date_str, "timezone": "America/Caracas"})
+    matches = api_request("fixtures", {"date": date_str})
     return [m for m in matches if m.get("league", {}).get("id") in ligas]
 
 def get_team_form(team_id):
